@@ -1,0 +1,7 @@
+main-> home,collections, about,contact,registration,login. (nav)
+
+
+
+to make admin credientials-> python3 manage.py createsuperuser
+
+to run server-> python3 manage.py runserver(normally will run our app ,and to access the admin panel just login with admin credientials)

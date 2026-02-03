@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% block title %} - Home{% endblock %}
+
+{% block content %}
+<section class="hero">
+    <h1>Elevate Your Style</h1>
+    <p>Discover the latest trends in sustainable fashion.</p>
+    <a href="{% url 'product_list' %}" class="btn-primary">Shop Now</a>
+</section>
+
+<section class="categories">
+    <h2>Shop by Category</h2>
+    <div class="category-grid">
+        {% for category in categories %}
+        <div class="category-card">
+            {% if category.image %}
+            <img src="{{ category.image.url }}" alt="{{ category.name }}">
+            {% else %}
+            <div class="placeholder"></div>
+            {% endif %}
+            <h3>{{ category.name }}</h3>
+            <a href="{% url 'product_list' %}?category={{ category.slug }}" class="btn-link">Explore</a>
+        </div>
+        {% endfor %}
+    </div>
+</section>
+
+<section class="featured">
+    <h2>Featured Products</h2>
+    <div class="product-grid">
+        {% for product in featured_products %}
+        <div class="product-card">
+            {% if product.image %}
+            <img src="{{ product.image.url }}" alt="{{ product.name }}">
+            {% else %}
+            <div class="placeholder"></div>
+            {% endif %}
+            <h3>{{ product.name }}</h3>
+            <p class="price">${{ product.price }}</p>
+            <a href="{% url 'product_detail' product.slug %}" class="btn-secondary">View Details</a>
+        </div>
+        {% endfor %}
+    </div>
+</section>
+{% endblock %}

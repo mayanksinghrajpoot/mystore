@@ -1,0 +1,53 @@
+{% extends 'adminapp/base_admin.html' %}
+
+{% block title %}Categories{% endblock %}
+
+{% block content %}
+<div class="flex justify-between items-center mb-6">
+    <h2 class="text-2xl font-bold text-slate-800">Categories</h2>
+    <a href="{% url 'admin_category_add' %}"
+        class="inline-flex items-center px-4 py-2 bg-blue-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-blue-700 focus:bg-blue-700 active:bg-blue-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150">
+        + Add Category
+    </a>
+</div>
+
+<div class="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
+    <div class="overflow-x-auto">
+        <table class="w-full text-left">
+            <thead>
+                <tr
+                    class="bg-slate-50 border-b border-slate-200 text-xs uppercase text-slate-500 font-semibold tracking-wider">
+                    <th class="px-6 py-4">Name</th>
+                    <th class="px-6 py-4">Slug</th>
+                    <th class="px-6 py-4">Product Count</th>
+                    <th class="px-6 py-4 text-right">Actions</th>
+                </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-200">
+                {% for category in categories %}
+                <tr class="hover:bg-slate-50 transition-colors">
+                    <td class="px-6 py-4 font-medium text-slate-900">{{ category.name }}</td>
+                    <td class="px-6 py-4 text-slate-500">{{ category.slug }}</td>
+                    <td class="px-6 py-4">
+                        <span
+                            class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-slate-100 text-slate-800">
+                            {{ category.products.count }}
+                        </span>
+                    </td>
+                    <td class="px-6 py-4 text-right space-x-2">
+                        <a href="{% url 'admin_category_edit' category.pk %}"
+                            class="text-indigo-600 hover:text-indigo-900 font-medium text-sm">Edit</a>
+                        <a href="{% url 'admin_category_delete' category.pk %}"
+                            class="text-red-600 hover:text-red-900 font-medium text-sm">Delete</a>
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="4" class="px-6 py-8 text-center text-slate-500">No categories found.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

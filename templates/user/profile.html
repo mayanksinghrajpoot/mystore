@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% block title %} - Profile{% endblock %}
+{% block content %}
+<div class="cart-container">
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
+        <h2>My Profile</h2>
+        <a href="{% url 'order_history' %}" class="btn-secondary">View My Orders</a>
+    </div>
+
+    <div style="display: flex; gap: 3rem; flex-wrap: wrap;">
+        <div style="flex: 1; text-align: center;">
+            {% if profile.avatar %}
+            <img src="{{ profile.avatar.url }}" alt="Avatar"
+                style="width: 150px; height: 150px; border-radius: 50%; object-fit: cover; margin-bottom: 1rem;">
+            {% else %}
+            <div style="width: 150px; height: 150px; border-radius: 50%; background: #eee; margin: 0 auto 1rem;"></div>
+            {% endif %}
+            <h3>{{ user.username }}</h3>
+            <p>{{ user.email }}</p>
+        </div>
+
+        <div style="flex: 2;">
+            <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label>Phone Number</label>
+                    <input type="text" name="phone" value="{{ profile.phone }}">
+                </div>
+                <div class="form-group">
+                    <label>Address</label>
+                    <textarea name="address" rows="3">{{ profile.address }}</textarea>
+                </div>
+                <div class="form-group">
+                    <label>Change Avatar</label>
+                    <input type="file" name="avatar">
+                </div>
+                <button type="submit">Update Profile</button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

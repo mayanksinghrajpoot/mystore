@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% block title %} - Shop{% endblock %}
+{% block content %}
+<section>
+    <h2>Our Collection</h2>
+    <div class="category-filters" style="text-align:center; margin-bottom: 2rem;">
+        <a href="{% url 'product_list' %}" class="btn-link">All</a>
+        {% for category in categories %}
+        <a href="?category={{ category.slug }}" class="btn-link">{{ category.name }}</a>
+        {% endfor %}
+    </div>
+    <div class="product-grid">
+        {% for product in products %}
+        <div class="product-card">
+            {% if product.image %}
+            <img src="{{ product.image.url }}" alt="{{ product.name }}">
+            {% else %}
+            <div class="placeholder"></div>
+            {% endif %}
+            <h3>{{ product.name }}</h3>
+            <p class="price">${{ product.price }}</p>
+            <a href="{% url 'product_detail' product.slug %}" class="btn-secondary">View Details</a>
+        </div>
+        {% empty %}
+        <p style="grid-column: 1/-1; text-align: center;">No products found.</p>
+        {% endfor %}
+    </div>
+</section>
+{% endblock %}
