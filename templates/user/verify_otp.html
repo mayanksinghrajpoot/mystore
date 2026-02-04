@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% block title %} - Verify OTP{% endblock %}
+{% block content %}
+<div class="form-container">
+    <h2>Verify Email</h2>
+    <p style="text-align: center;">Please enter the OTP sent to your email.</p>
+    <form method="post">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="otp">OTP Code</label>
+            <input type="text" name="otp" id="otp" required class="form-control" maxlength="6" pattern="\d{6}"
+                title="Please enter 6 digit OTP">
+        </div>
+        <button type="submit" style="margin-top: 1rem;">Verify</button>
+    </form>
+    <p style="margin-top: 1rem; text-align: center;">
+        <a href="{% url 'register' %}" style="color: var(--accent-color);">Back to Register</a>
+    </p>
+</div>
+{% endblock %}
