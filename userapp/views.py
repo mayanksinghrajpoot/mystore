@@ -109,6 +109,13 @@ def verify_otp(request):
                 login(request, user)
                 del request.session['verification_user_id']
                 messages.success(request, 'Email verified! Registration successful.')
+
+                #sending email for successful registration
+                subject = 'Registration Successful'
+                message = f'Welcome to Style Store, {user.username}! Your registration was successful.'
+                from_email = settings.EMAIL_HOST_USER
+                recipient_list = [user.email]
+                send_mail(subject, message, from_email, recipient_list)
                 return redirect('home') # Redirect to home as dashboard URL is not defined
             else:
                 messages.error(request, 'Invalid OTP.')
